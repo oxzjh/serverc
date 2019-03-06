@@ -42,6 +42,15 @@ server.runServerWS(
 );
 ```
 
+#### ERROR CODES:
+```
+code:1000 "_key" expired or "_sign" error or timeout.
+code:1001 "_uid" param not found.
+code:1002 route file not found.
+code:1003 route method not found.
+code:1004 process in queue (check this method's logic that somewhere take long time).
+```
+
 ```
 // Logic code file
 const server = require('serverc');
