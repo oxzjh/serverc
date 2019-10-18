@@ -14,8 +14,9 @@ const nodelib = require('nodelibc');
 const server = require('serverc');
 
 server.runHTTP(
-	3000,
-	new nodelib.Router(path.join(__dirname, 'routes')), // route of the server (You should create a folder named routes, and create logic handlers in it.)
+	3000, // server port
+	null, // default: new nodelib.JsonHandler(false, fales) arg1-compress, arg2-stream
+	new nodelib.JsonRouter(path.join(__dirname, 'routes')), // route of the server (You should create a folder named routes, and create logic handlers in it.)
 	null, // secret
 	null, // domain (Could be '*' when you are testing.)
 	false, // sign (Check sign or not)
@@ -36,23 +37,24 @@ const server = require('serverc');
 
 server.runServerWS(
 	3000,
-	new nodelib.JsonHandler(false), // handler (Could be JsonHandler, ProtobufHandler, BufferHandler, JsonHandler argument 1 means compress or not)
-	new nodelib.Router(path.join(__dirname, 'routes')), // route of the server (You should create a folder named routes, and create logic handlers in it.)
+	new nodelib.JsonHandler(false), // handler (Could be JsonHandler, HandlerJson, HandlerBuffer, HandlerProtobuf)
+	new nodelib.Router(methods, path.join(__dirname, 'routes')), // route of the server ("methods" is a key-value object, like {"User.login":10, "User.logout":11, ...}, the value is a protocol like the protobuf's protocol. You should create a folder named routes, and create logic handlers in it.)
 	null // secret
 );
 ```
 
-#### ERROR CODES:
+#### PROTOCOLS:
 ```
-code:1000 "_key" expired or "_sign" error or timeout.
-code:1001 "_uid" param not found.
-code:1002 route file not found.
-code:1003 route method not found.
-code:1004 process in queue (check this method's logic that somewhere take long time).
+0 :connect, clinet should send "uint32 for _uid" and "string for _key".
+protocol<0 means ERROR:
+-1:"_uid" param not found.
+-2:route handler not found.
+-3:process in queue (check this method's logic that somewhere take long time).
+-4:"_key" expired or "_sign" error or timeout.
 ```
 
 ```
 // Logic code file
 const server = require('serverc');
-server.broadcast('some message...');
+server.broadcast(some message...);
 ```
