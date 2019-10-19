@@ -1,6 +1,6 @@
 {
   "name": "serverc",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "serverc",
   "files": [
     "index.jsc",
@@ -13,6 +13,6 @@
   "author": "Johnny Cheng",
   "license": "ISC",
   "dependencies": {
-    "nodelibc": "2.0.0"
+    "nodelibc": "2.0.1"
   }
 }
