@@ -17,10 +17,8 @@ server.runHTTP(
 	3000, // server port
 	null, // default: new nodelib.JsonHandler(false, fales) arg1-compress, arg2-stream
 	new nodelib.JsonRouter(path.join(__dirname, 'routes')), // route of the server (You should create a folder named routes, and create logic handlers in it.)
-	null, // secret
 	null, // domain (Could be '*' when you are testing.)
-	false, // sign (Check sign or not)
-	300000 // timeout (Compare server timestamp with client timestamp, if more then this value will return directly.)
+	null // checker (return true if data is OK.)
 );
 ```
 
